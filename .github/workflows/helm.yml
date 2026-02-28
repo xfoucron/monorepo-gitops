@@ -39,7 +39,7 @@ jobs:
             --password-stdin
 
       - name: Package chart
-        run: helm package helm-chart
+        run: helm package .
 
       - name: Push chart to OCI
         run: |
