@@ -44,3 +44,4 @@ autoscaling:
   targetMemoryUtilizationPercentage: 80
 
 env: []
+envSpecific: []

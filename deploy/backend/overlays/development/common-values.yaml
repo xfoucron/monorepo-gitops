@@ -23,3 +23,7 @@ resources:
   limits:
     cpu: 128m
     memory: 128Mi
+
+ingress:
+  enabled: true
+  className: "nginx"

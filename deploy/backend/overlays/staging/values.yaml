@@ -1,5 +1,9 @@
 ---
 
+envSpecific:
+  - name: APP_DOMAIN
+    value: "http://staging.notes.local"
+
 resources:
   requests:
     cpu: 512m
@@ -7,3 +11,10 @@ resources:
   limits:
     cpu: 512m
     memory: 512Mi
+
+ingress:
+  hosts:
+    - host: staging.notes-api.local
+      paths:
+        - path: /
+          pathType: Prefix

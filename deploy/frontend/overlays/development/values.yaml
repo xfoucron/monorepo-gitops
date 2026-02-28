@@ -1,5 +1,12 @@
 ---
 
-env:
-  - name: NEXT_PUBLIC_BACKEND_API_URL
+envSpecific:
+  - name: BACKEND_API_URL
     value: "http://dev.notes-api.local/"
+
+ingress:
+  hosts:
+    - host: dev.notes.local
+      paths:
+        - path: /
+          pathType: Prefix

@@ -1,5 +1,9 @@
 ---
 
+envSpecific:
+  - name: APP_DOMAIN
+    value: "http://dev.notes.local"
+
 resources:
   requests:
     cpu: 256m
@@ -7,3 +11,10 @@ resources:
   limits:
     cpu: 256m
     memory: 256Mi
+
+ingress:
+  hosts:
+    - host: dev.notes-api.local
+      paths:
+        - path: /
+          pathType: Prefix
