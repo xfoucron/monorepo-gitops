@@ -3,7 +3,7 @@
 extends: default
 
 ignore: |
-  deploy/helm-chart/templates/*.y*ml
+  deploy/charts/*/templates/*.y*ml
 
 rules:
   line-length:
