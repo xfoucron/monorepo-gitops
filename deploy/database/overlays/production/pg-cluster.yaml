@@ -1,0 +1,29 @@
+---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: backend-pg-cluster
+spec:
+  instances: 3
+  storage:
+    size: 30Gi
+  resources:
+    requests:
+      cpu: "4"
+      memory: 8Gi
+    limits:
+      cpu: "4"
+      memory: 8Gi
+  postgresql:
+    parameters:
+      shared_buffers: "2GB"
+      effective_cache_size: "6GB"
+      maintenance_work_mem: "512MB"
+      wal_buffers: "16MB"
+      random_page_cost: "1.1"
+      work_mem: "10200kB"
+      max_worker_processes: "4"
+      max_parallel_workers_per_gather: "2"
+      max_parallel_workers: "4"
+      max_parallel_maintenance_workers: "2"
