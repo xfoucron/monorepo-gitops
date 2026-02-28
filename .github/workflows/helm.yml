@@ -1,0 +1,42 @@
+---
+
+name: Helm
+on: push  # yamllint disable-line rule:truthy
+env:
+  WORKING_DIR: deploy/helm-chart
+defaults:
+  run:
+    working-directory: deploy/helm-chart
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+
+      - name: Run Helm lint
+        run: helm lint
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [lint]
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          charts_dir: deploy/helm-chart
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
