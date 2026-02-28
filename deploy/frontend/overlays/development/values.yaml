@@ -1,7 +1,7 @@
 ---
 
 env:
-  - name: NEXT_PUBLIC_BACKEND_API_URL
+  - name: BACKEND_API_URL
     value: "http://dev.notes-api.local/"
 
 ingress:
