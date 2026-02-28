@@ -45,7 +45,8 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.env }}
+          {{- $envVars := append .Values.env .Values.specificEnv }}
+          {{- if $envVars }}
           env:
-            {{- toYaml . | nindent 12 }}
+            {{- toYaml $envVars | nindent 12 }}
           {{- end }}
