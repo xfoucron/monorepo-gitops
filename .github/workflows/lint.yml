@@ -1,0 +1,15 @@
+---
+
+name: Lint files
+on: push  # yamllint disable-line rule:truthy
+jobs:
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Lint Yaml files
+        run: yamllint -c .yamllint.yml .
