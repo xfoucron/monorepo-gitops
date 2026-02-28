@@ -14,3 +14,7 @@ resources:
 
 service:
   port: 3000
+
+ingress:
+  enabled: true
+  className: "nginx"
