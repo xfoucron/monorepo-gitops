@@ -18,7 +18,7 @@ jobs:
         uses: azure/setup-helm@v4
 
       - name: Run Helm lint
-        run: helm lint
+        run: helm lint .
 
   release:
     runs-on: ubuntu-latest
