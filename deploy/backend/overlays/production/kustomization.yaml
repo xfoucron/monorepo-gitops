@@ -9,6 +9,6 @@ helmCharts:
     name: helm-chart
     repo: oci://ghcr.io/xfoucron/charts
     namespace: production
-    valuesFile: ../../base/values.yaml
+    valuesFile: common-values.yaml
     additionalValuesFiles:
       - values.yaml
