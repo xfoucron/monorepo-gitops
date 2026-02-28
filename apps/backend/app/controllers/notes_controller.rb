@@ -17,7 +17,7 @@ class NotesController < ApplicationController
     if @note.save
       render json: @note, status: :created, location: @note
     else
-      render json: @note.errors, status: :unprocessable_content
+      render json: @note.errors.full_messages, status: :unprocessable_content
     end
   end
 
@@ -25,7 +25,7 @@ class NotesController < ApplicationController
     if @note.update(note_params)
       render json: @note
     else
-      render json: @note.errors, status: :unprocessable_content
+      render json: @note.errors.full_messages, status: :unprocessable_content
     end
   end
 
