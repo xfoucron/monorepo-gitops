@@ -4,6 +4,7 @@ extends: default
 
 ignore: |
   deploy/charts/*/templates/*.y*ml
+  **/node_modules/**/*.y*ml
 
 rules:
   line-length:
