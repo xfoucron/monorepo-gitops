@@ -2,7 +2,7 @@
 
 image:
   repository: ghcr.io/xfoucron/monorepo-backend
-  tag: v1.0.1
+  tag: v1.1.0
 
 env:
   - name: RAILS_MASTER_KEY
