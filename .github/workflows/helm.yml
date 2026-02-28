@@ -29,14 +29,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
 
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.6.0
-        with:
-          charts_dir: deploy/charts
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Login to GHCR
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ghcr.io \
+            --username ${{ github.actor }} \
+            --password-stdin
+
+      - name: Package chart
+        run: helm package helm-chart
+
+      - name: Push chart to OCI
+        run: |
+          VERSION=$(grep '^version:' helm-chart/Chart.yaml | awk '{print $2'}
+          helm push helm-chart-$VERSION.tgz oci://ghcr.io/${{ github.repository_owner }}/charts
