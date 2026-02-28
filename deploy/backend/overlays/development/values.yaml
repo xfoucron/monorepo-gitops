@@ -2,7 +2,7 @@
 
 envSpecific:
   - name: APP_DOMAIN
-    value: "http://dev.notes-api.local/"
+    value: "http://dev.notes.local"
 
 resources:
   requests:
