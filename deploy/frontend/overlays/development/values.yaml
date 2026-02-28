@@ -1,6 +1,6 @@
 ---
 
-env:
+specificEnv:
   - name: BACKEND_API_URL
     value: "http://dev.notes-api.local/"
 

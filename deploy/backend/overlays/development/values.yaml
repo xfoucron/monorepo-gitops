@@ -1,5 +1,9 @@
 ---
 
+specificEnv:
+  - name: APP_DOMAIN
+    value: "http://dev.notes-api.local/"
+
 resources:
   requests:
     cpu: 256m
