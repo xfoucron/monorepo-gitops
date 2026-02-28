@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [lint]
     permissions:
-      contents: write
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -43,5 +43,5 @@ jobs:
 
       - name: Push chart to OCI
         run: |
-          VERSION=$(grep '^version:' helm-chart/Chart.yaml | awk '{print $2'}
+          VERSION=$(grep '^version:' Chart.yaml | awk '{print $2}')
           helm push helm-chart-$VERSION.tgz oci://ghcr.io/${{ github.repository_owner }}/charts
