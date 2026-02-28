@@ -8,7 +8,7 @@ export const getNotes = async (): Promise<Note[]> => {
   return res.json()
 }
 
-export const createNote = async (note: Omit<Note, "id">): Promise<Note> => {
+export const createNote = async (note: { title: string, content: string }): Promise<Note> => {
   const res = await fetch(`${API_URL}/notes`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

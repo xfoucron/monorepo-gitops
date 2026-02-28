@@ -8,7 +8,7 @@ type NotesContextType = {
   notes: Note[]
   error: string
   loading: boolean
-  addNote: (note: Omit<Note, "id">) => Promise<void>
+  addNote: (note: { title: string, content: string }) => Promise<void>
   deleteNote: (id: number) => Promise<void>
 }
 
@@ -29,7 +29,8 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
         } else {
           setNotes(data)
         }
-      } catch (error) {
+      } catch (err: unknown) {
+        const error = err as Error
         setError(error.message)
       } finally {
         setLoading(false)
@@ -39,15 +40,14 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
     loadNotes()
   }, [])
 
-  const addNote = async (note: Omit<Note, "id">) => {
+  const addNote = async (note: { title: string, content: string }) => {
     setError("")
 
     try {
       const newNote = await createNote(note)
       setNotes((prev) => [newNote, ...prev])
-    } catch (err) {
-      // setError(err?.message || "Failed to create notes")
-      throw err
+    } catch (err: unknown) {
+      throw err as Error
     }
   }
 
@@ -57,9 +57,10 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
     try {
       await destroyNote(id)
       setNotes((prev) => prev.filter((n) => n.id !== id))
-    } catch (err) {
-      setError(err?.message || "Failed to delete note")
-      throw err
+    } catch (err: unknown) {
+      const error = err as Error
+      setError(error.message || "Failed to delete note")
+      throw error
     }
   }
 

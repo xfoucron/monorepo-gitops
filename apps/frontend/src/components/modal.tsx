@@ -24,8 +24,9 @@ export const CreateNoteModal = ({ onClose }: Props) => {
     try {
       await addNote({ title, content })
       onClose()
-    } catch (err) {
-      setError(err?.message || "Failed to create note")
+    } catch (err: unknown) {
+      const error = err as Error
+      setError(error.message || "Failed to create note")
     } finally {
       setLoading(false)
     }

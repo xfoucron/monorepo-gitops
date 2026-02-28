@@ -1,16 +1,16 @@
 "use client"
 
 import { Note } from "@/types/note";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { useNotes } from "@/providers/notes";
 
-const ListWrapper = ({ children }) => {
+const ListWrapper = ({ children }: { children: ReactNode }) => {
   return <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
     {children}
   </ul>
 }
 
-const NoteCard = ({ note, onDelete, removing }: { note: Note, onDelete: { id: number }, removing?: boolean }) => {
+const NoteCard = ({ note, onDelete, removing }: { note: Note, onDelete: ( id: number ) => void, removing?: boolean }) => {
   return (
     <div
       className={`bg-gray-200 rounded p-4 relative transition-all duration-500 ease-in-out ${removing ? "opacity-0 -translate-y-4 max-h-0 p-0 m-0" : "opacity-100 max-h-96"}`}>
@@ -22,7 +22,7 @@ const NoteCard = ({ note, onDelete, removing }: { note: Note, onDelete: { id: nu
       </div>
       <div>
         <p>Created: {new Date(note.created_at).toLocaleString()}</p>
-        <button onClick={() => onDelete(note.id)}>Delete</button>
+        <button disabled={removing} onClick={() => onDelete(note.id)}>Delete</button>
       </div>
     </div>
   )
@@ -58,8 +58,9 @@ export default function ListNotesPage() {
       try {
         await deleteNote(id)
         setRemovingIds((prev) => prev.filter((rid) => rid !== rid))
-      } catch (err) {
-        alert(err?.message || "Failed to delete")
+      } catch (err: unknown) {
+        const error = err as Error
+        alert(error.message || "Failed to delete")
         setRemovingIds((prev) => prev.filter((rid) => rid !== rid))
       }
     }, 500)
