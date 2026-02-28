@@ -1,0 +1,35 @@
+---
+
+# Configuration from:
+# https://pgtune.leopard.in.ua/?dbVersion=18&osType=linux&dbType=web&cpuNum=1&totalMemory=1&totalMemoryUnit=GB&connectionNum=&hdType=ssd
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: backend-pg-cluster
+spec:
+  instances: 1
+  storage:
+    size: 10Gi
+  resources:
+    requests:
+      cpu: 1
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  postgresql:
+    parameters:
+      max_connections: "200"
+      shared_buffers: "256MB"
+      effective_cache_size: "768MB"
+      maintenance_work_mem: "64MB"
+      checkpoint_completion_target: "0.9"
+      wal_buffers: "7864kB"
+      default_statistics_target: "100"
+      random_page_cost: "1.1"
+      effective_io_concurrency: "200"
+      work_mem: "1260kB"
+      huge_pages: "off"  # yamllint disable-line truthy
+      min_wal_size: "1GB"
+      max_wal_size: "4GB"
