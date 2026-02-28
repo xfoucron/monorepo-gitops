@@ -1,0 +1,2 @@
+# Ignore charts downloaded locally
+deploy/**/overlays/**/charts/

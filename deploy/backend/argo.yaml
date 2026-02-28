@@ -1,0 +1,30 @@
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: backend-application-set
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: development
+          - name: staging
+          - name: production
+  template:
+    metadata:
+      name: '{{name}}-backend'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/xfoucron/monorepo-gitops.git'
+        targetRevision: master
+        path: 'deploy/backend/overlays/{{name}}'
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: '{{name}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
