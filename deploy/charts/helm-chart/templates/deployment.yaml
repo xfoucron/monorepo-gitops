@@ -45,16 +45,12 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- $env := default (list) .Values.env }}
-          {{- $specificEnv := default (list) .Values.specificEnv }}
-          {{- $envVars := list }}
-          {{- range $env }}
-            {{- $envVars = append $envVars . }}
-          {{- end }}
-          {{- range $specificEnv }}
-          {{- $envVars = append $envVars . }}
-          {{- end }}
-          {{- if gt (len $envVars) 0 }}
+          {{- if or .Values.env .Values.envSpecific }}
           env:
-            {{- toYaml $envVars | nindent 12 }}
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.envSpecific }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- end }}

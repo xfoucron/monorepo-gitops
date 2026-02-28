@@ -1,6 +1,6 @@
 ---
 
-specificEnv:
+envSpecific:
   - name: APP_DOMAIN
     value: "http://dev.notes-api.local/"
 
