@@ -1,0 +1,20 @@
+---
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: notes_backend_development
+
+test:
+  <<: *default
+  database: notes_backend_test
+
+production:
+  <<: *default
+  database: notes_backend_production
+  username: notes_backend
+  password: <%= ENV["NOTES_BACKEND_DATABASE_PASSWORD"] %>
