@@ -1,0 +1,5 @@
+---
+
+env:
+  - name: NEXT_PUBLIC_BACKEND_API_URL
+    value: "http://staging.notes-api.local/"
