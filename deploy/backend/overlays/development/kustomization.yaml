@@ -1,0 +1,14 @@
+---
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: development
+nameSuffix: -development
+helmCharts:
+  - releaseName: backend
+    name: helm-chart
+    repo: oci://ghcr.io/xfoucron/charts
+    namespace: development
+    valuesFile: ../../base/values.yaml
+    additionalValuesFiles:
+      - values.yaml
